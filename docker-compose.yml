@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  react:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    command: [ 'npm', 'start' ]
+    ports:
+      - '5002:3000'
+    volumes:
+      - ./src:/app/src:delegated
+      - ./public:/app/public:delegated
+    stdin_open: true
+    environment:
+      VIRTUAL_HOST: front.coding-challenge.docker
+      EXPRESS_API_URL: http://localhost:5001/
+
+networks:
+  default:
+    name: coding_challenge
+    external: true
